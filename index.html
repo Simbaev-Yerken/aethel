@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHEL STUDIO — Разработка сайтов и цифровых решений для бизнеса</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #123B56;
+            overflow-x: hidden;
+        }
+        
+        /* Premium Card Styles */
+        .premium-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(135, 153, 165, 0.2);
+            box-shadow: 0 10px 30px -10px rgba(18, 59, 86, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .premium-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(21, 157, 224, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(21, 157, 224, 0.18);
+        }
+
+        .dark-card {
+            background: #123B56;
+            color: #FFFFFF;
+            box-shadow: 0 20px 40px -10px rgba(18, 59, 86, 0.25);
+        }
+
+        /* Gradient Accents */
+        .text-gradient {
+            background: linear-gradient(135deg, #123B56 0%, #159DE0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-lime {
+            background: linear-gradient(135deg, #159DE0 0%, #8EDC24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Browser Window Frame for Projects */
+        .browser-mockup {
+            border-radius: 16px;
+            background: #FFFFFF;
+            box-shadow: 0 20px 40px -15px rgba(18, 59, 86, 0.12);
+            border: 1px solid rgba(135, 153, 165, 0.25);
+            overflow: hidden;
+        }
+        .browser-bar {
+            background: #F3F7F9;
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(135, 153, 165, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3F7F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8799A5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #159DE0;
+        }
+
+        /* Nav links */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #159DE0;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aethel: {
+                            navy: '#123B56',
+                            blue: '#159DE0',
+                            lime: '#8EDC24',
+                            gray: '#8799A5',
+                            light: '#F3F7F9',
+                            white: '#FFFFFF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="selection:bg-aethel-lime selection:text-aethel-navy">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 lg:px-12 bg-white/90 backdrop-blur-md border-b border-aethel-gray/15">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- LOGO IMAGE PLACEHOLDER -->
+            <a href="#" onclick="switchTab('home')" class="flex items-center gap-3 group">
+                <!-- Место под ваше фото логотипа -->
+                <div class="h-10 w-auto flex items-center justify-center overflow-hidden">
+                    <img src="logo.png" alt="AETHEL STUDIO Logo" class="h-full object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';" />
+                    
+                    <!-- Резервный логотип, если картинка еще не добавлена -->
+                    <div id="logo-fallback" class="hidden items-center gap-2">
+                        <div class="w-9 h-9 bg-aethel-navy rounded-lg flex items-center justify-center text-aethel-lime font-black text-xl shadow-sm">A</div>
+                        <span class="font-extrabold text-xl tracking-tight text-aethel-navy">AETHEL</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-aethel-navy/70">
+                <button onclick="switchTab('home')" class="nav-link text-aethel-navy active hover:text-aethel-navy transition-colors" data-tab="home">Главная</button>
+                <button onclick="switchTab('services')" class="nav-link hover:text-aethel-navy transition-colors" data-tab="services">Услуги</button>
+                <button onclick="switchTab('portfolio')" class="nav-link hover:text-aethel-navy transition-colors" data-tab="portfolio">Портфолио</button>
+                <button onclick="switchTab('about')" class="nav-link hover:text-aethel-navy transition-colors" data-tab="about">О студии</button>
+                <button onclick="switchTab('contacts')" class="nav-link hover:text-aethel-navy transition-colors" data-tab="contacts">Контакты</button>
+            </nav>
+
+            <!-- Quick Contact Button -->
+            <div class="hidden md:block">
+                <a href="https://t.me/qoqoqowi" target="_blank" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-aethel-navy text-white text-xs font-bold tracking-wider hover:bg-aethel-blue transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-aethel-lime"></i>
+                    <span>Связаться в Telegram</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-aethel-navy focus:outline-none p-2">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white border-b border-aethel-gray/20 py-6 px-6 flex flex-col space-y-4 shadow-xl">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="text-left text-base font-bold text-aethel-navy py-2 border-b border-aethel-gray/10">Главная</button>
+            <button onclick="switchTab('services'); toggleMobileMenu();" class="text-left text-base font-bold text-aethel-navy/70 hover:text-aethel-navy py-2 border-b border-aethel-gray/10">Услуги</button>
+            <button onclick="switchTab('portfolio'); toggleMobileMenu();" class="text-left text-base font-bold text-aethel-navy/70 hover:text-aethel-navy py-2 border-b border-aethel-gray/10">Портфолио</button>
+            <button onclick="switchTab('about'); toggleMobileMenu();" class="text-left text-base font-bold text-aethel-navy/70 hover:text-aethel-navy py-2 border-b border-aethel-gray/10">О студии</button>
+            <button onclick="switchTab('contacts'); toggleMobileMenu();" class="text-left text-base font-bold text-aethel-navy/70 hover:text-aethel-navy py-2 border-b border-aethel-gray/10">Контакты</button>
+            <a href="https://t.me/qoqoqowi" target="_blank" class="w-full mt-4 py-3 bg-aethel-navy text-white font-bold rounded-xl text-center flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4 text-aethel-lime"></i>
+                Написать в Telegram
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT VIEWS -->
+    <main class="pt-24 min-h-screen">
+
+        <!-- TAB: HOME -->
+        <div id="view-home" class="tab-view">
+            
+            <!-- HERO SECTION -->
+            <section class="relative min-h-[85vh] flex items-center justify-center px-6 lg:px-12 py-12 overflow-hidden bg-gradient-to-b from-aethel-light/50 via-white to-white">
+                <div class="absolute top-1/4 right-5 w-96 h-96 bg-aethel-blue/10 rounded-full blur-[100px] pointer-events-none"></div>
+                <div class="absolute bottom-10 left-5 w-96 h-96 bg-aethel-lime/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-7 z-10">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-aethel-light border border-aethel-blue/20 text-aethel-blue text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-aethel-lime animate-pulse"></span>
+                            AETHEL STUDIO • DIGITAL AGENCY
+                        </div>
+                        
+                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] text-aethel-navy mb-6">
+                            Создаём сайты,<br>
+                            которые <span class="text-gradient">продают ваш</span><br>
+                            <span class="text-gradient-lime">авторитет и продукт.</span>
+                        </h1>
+                        
+                        <p class="text-lg sm:text-xl text-aethel-navy/80 max-w-xl font-normal leading-relaxed mb-8">
+                            Превращаем сложное позиционирование бизнеса в эстетичные, удобные и быстрые цифровые сервисы, вызывающие мгновенное доверие клиентов.
+                        </p>                        
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <a href="https://t.me/qoqoqowi" target="_blank" class="px-8 py-4 bg-aethel-navy text-white font-bold rounded-2xl hover:bg-aethel-blue transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-3">
+                                <span>Заказать сайт в Telegram</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5 text-aethel-lime"></i>
+                            </a>
+                            <button onclick="switchTab('portfolio')" class="px-8 py-4 bg-aethel-light text-aethel-navy font-bold rounded-2xl hover:bg-aethel-navy/5 border border-aethel-gray/30 transition-all duration-300">
+                                Смотреть проекты
+                            </button>
+                        </div>
+
+                        <!-- Trust Metrics -->
+                        <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-aethel-gray/20">
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-black text-aethel-navy">15+</div>
+                                <div class="text-xs text-aethel-gray font-semibold">Стран охвата в кейсах</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-black text-aethel-blue">100%</div>
+                                <div class="text-xs text-aethel-gray font-semibold">Чистый адаптивный код</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-black text-aethel-navy">0%</div>
+                                <div class="text-xs text-aethel-gray font-semibold">Шаблонов и воды</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3D CUBE INTERACTIVE CANVAS -->
+                    <div class="lg:col-span-5 relative h-[380px] w-full flex flex-col items-center justify-center">
+                        <canvas id="cube-canvas" width="380" height="380" class="w-full max-w-[380px] h-[380px] cursor-grab active:cursor-grabbing"></canvas>
+                        <div class="mt-2 text-center text-xs text-aethel-gray font-medium flex items-center gap-2 bg-aethel-light px-4 py-2 rounded-full border border-aethel-gray/20">
+                            <i data-lucide="move" class="w-3.5 h-3.5 text-aethel-blue"></i>
+                            <span>Интерактивная 3D-фигура AETHEL</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION: BRIEF ABOUT & VALUE -->
+            <section class="py-20 px-6 lg:px-12 bg-aethel-light/60 border-y border-aethel-gray/15">
+                <div class="max-w-7xl mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div class="lg:col-span-5">
+                            <span class="text-aethel-blue font-bold text-xs tracking-widest uppercase mb-2 block">ПОЧЕМУ ИМЕННО МЫ</span>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-aethel-navy leading-tight">
+                                Сайт — это не просто картинка. Это главный инструмент продаж.
+                            </h2>
+                        </div>
+                        <div class="lg:col-span-7">
+                            <p class="text-aethel-navy/80 text-lg leading-relaxed mb-4 font-normal">
+                                <strong class="text-aethel-navy font-bold">AETHEL STUDIO</strong> создаёт продуманную веб-архитектуру для бизнеса. Мы избавляем вас от устаревших громоздких решений и создаём продуктовые сайты с максимальной скоростью загрузки и чистым стилем.
+                            </p>
+                            <p class="text-aethel-gray text-base leading-relaxed">
+                                Каждая страница проектируется так, чтобы пользователь за 5 секунд понимал ценность вашего предложения и легко переходил к покупке или связи.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 3 Key Pillars -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                        <div class="premium-card p-8 rounded-3xl border-l-4 border-l-aethel-blue">
+                            <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-blue flex items-center justify-center mb-6">
+                                <i data-lucide="palette" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-aethel-navy mb-2">Узнаваемый UI/UX Дизайн</h3>
+                            <p class="text-aethel-gray text-sm leading-relaxed">Разрабатываем эстетику, которая подчёркивает премиальный статус компании и отличает вас от конкурентов.</p>
+                        </div>
+
+                        <div class="premium-card p-8 rounded-3xl border-l-4 border-l-aethel-lime">
+                            <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-navy flex items-center justify-center mb-6">
+                                <i data-lucide="code" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-aethel-navy mb-2">Чистая веб-разработка</h3>
+                            <p class="text-aethel-gray text-sm leading-relaxed">Быстродействующий код без лишнего системного мусора. Идеальная работа на смартфонах и ПК.</p>
+                        </div>
+
+                        <div class="premium-card p-8 rounded-3xl border-l-4 border-l-aethel-navy">
+                            <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-blue flex items-center justify-center mb-6">
+                                <i data-lucide="trending-up" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-aethel-navy mb-2">Фокус на конверсию</h3>
+                            <p class="text-aethel-gray text-sm leading-relaxed">Понятные заголовки, удобные целевые кнопки и продуманный путь клиента к заказу.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES SECTION -->
+            <section class="py-24 px-6 lg:px-12 relative">
+                <div class="max-w-7xl mx-auto">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                        <div>
+                            <span class="text-aethel-blue font-bold text-xs tracking-widest uppercase mb-2 block">УСЛУГИ И ФОРМАТЫ</span>
+                            <h2 class="text-4xl sm:text-5xl font-black text-aethel-navy">Что мы создаём для бизнеса</h2>
+                        </div>
+                        <p class="text-aethel-gray max-w-md mt-4 md:mt-0 text-sm font-medium">
+                            Прозрачные форматы веб-разработки с фиксированным качеством и вниманием к деталям.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        
+                        <!-- Service 1 -->
+                        <div class="premium-card p-8 rounded-3xl flex flex-col justify-between group">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="font-mono text-2xl font-black text-aethel-blue/40 group-hover:text-aethel-blue transition-colors">01</span>
+                                    <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-navy group-hover:bg-aethel-blue group-hover:text-white transition-all flex items-center justify-center">
+                                        <i data-lucide="layout" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-bold text-aethel-navy mb-3">Лендинги и Промо-сайты</h3>
+                                <p class="text-aethel-gray text-sm leading-relaxed mb-6">
+                                    Мощный одностраничный сайт для запуска продукта, услуги или рекламной кампании. Сфокусирован на быстрый захват внимания и конверсию.
+                                </p>
+                            </div>
+                            <a href="https://t.me/qoqoqowi" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-aethel-blue uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                                <span>Заказать лендинг</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                        <!-- Service 2 -->
+                        <div class="premium-card p-8 rounded-3xl flex flex-col justify-between group">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="font-mono text-2xl font-black text-aethel-blue/40 group-hover:text-aethel-blue transition-colors">02</span>
+                                    <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-navy group-hover:bg-aethel-blue group-hover:text-white transition-all flex items-center justify-center">
+                                        <i data-lucide="globe" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-bold text-aethel-navy mb-3">Корпоративные сайты</h3>
+                                <p class="text-aethel-gray text-sm leading-relaxed mb-6">
+                                    Многостраничные решения для компаний. Презентация услуг, ценностей, структуры бренда и удобная навигация для потенциальных партнеров.
+                                </p>
+                            </div>
+                            <a href="https://t.me/qoqoqowi" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-aethel-blue uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                                <span>Заказать сайт компании</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                        <!-- Service 3 -->
+                        <div class="premium-card p-8 rounded-3xl flex flex-col justify-between group">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="font-mono text-2xl font-black text-aethel-blue/40 group-hover:text-aethel-blue transition-colors">03</span>
+                                    <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-navy group-hover:bg-aethel-blue group-hover:text-white transition-all flex items-center justify-center">
+                                        <i data-lucide="grid" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-bold text-aethel-navy mb-3">Электронные каталоги</h3>
+                                <p class="text-aethel-gray text-sm leading-relaxed mb-6">
+                                    Интерактивные веб-каталоги товаров или услуг с фильтрацией, удобной демонстрацией позиций и прямой связью с отделом продаж.
+                                </p>
+                            </div>
+                            <a href="https://t.me/qoqoqowi" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-aethel-blue uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                                <span>Заказать каталог</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                        <!-- Service 4 -->
+                        <div class="premium-card p-8 rounded-3xl flex flex-col justify-between group">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="font-mono text-2xl font-black text-aethel-blue/40 group-hover:text-aethel-blue transition-colors">04</span>
+                                    <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-navy group-hover:bg-aethel-blue group-hover:text-white transition-all flex items-center justify-center">
+                                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-bold text-aethel-navy mb-3">Индивидуальный UI/UX Дизайн</h3>
+                                <p class="text-aethel-gray text-sm leading-relaxed mb-6">
+                                    Проектирование авторского дизайна сайтов и сервисов с нуля: прототипирование, уникальный стиль и адаптивные сетки.
+                                </p>
+                            </div>
+                            <a href="https://t.me/qoqoqowi" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-aethel-blue uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                                <span>Заказать UI/UX дизайн</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                        <!-- Service 5 -->
+                        <div class="premium-card p-8 rounded-3xl flex flex-col justify-between group">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="font-mono text-2xl font-black text-aethel-blue/40 group-hover:text-aethel-blue transition-colors">05</span>
+                                    <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-navy group-hover:bg-aethel-blue group-hover:text-white transition-all flex items-center justify-center">
+                                        <i data-lucide="rotate-cw" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-bold text-aethel-navy mb-3">Редизайн сайтов</h3>
+                                <p class="text-aethel-gray text-sm leading-relaxed mb-6">
+                                    Полная модернизация устаревших сайтов. Перенос на современный стек, ускорение работы и обновление визуального вида.
+                                </p>
+                            </div>
+                            <a href="https://t.me/qoqoqowi" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-aethel-blue uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                                <span>Обновить мой сайт</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                        <!-- Service 6 -->
+                        <div class="premium-card p-8 rounded-3xl flex flex-col justify-between group">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="font-mono text-2xl font-black text-aethel-blue/40 group-hover:text-aethel-blue transition-colors">06</span>
+                                    <div class="w-12 h-12 rounded-2xl bg-aethel-light text-aethel-navy group-hover:bg-aethel-blue group-hover:text-white transition-all flex items-center justify-center">
+                                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-bold text-aethel-navy mb-3">Сопровождение и Доработки</h3>
+                                <p class="text-aethel-gray text-sm leading-relaxed mb-6">
+                                    Техническая поддержка, обновление материалов, исправление ошибок и постоянное улучшение вашего проекта.
+                                </p>
+                            </div>
+                            <a href="https://t.me/qoqoqowi" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-aethel-blue uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                                <span>Обсудить поддержку</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- PORTFOLIO SECTION WITH CLEAN REAL WINDOWS -->
+            <section class="py-24 px-6 lg:px-12 bg-aethel-light/50 border-t border-aethel-gray/15">
+                <div class="max-w-7xl mx-auto">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                        <div>
+                            <span class="text-aethel-blue font-bold text-xs tracking-widest uppercase mb-2 block">КЕЙСЫ И ПРОЕКТЫ</span>
+                            <h2 class="text-4xl sm:text-5xl font-black text-aethel-navy">Из идей — в реальные продукты</h2>
+                        </div>
+                        <p class="text-aethel-gray text-sm max-w-sm mt-4 md:mt-0 font-medium">
+                            Посмотрите на работающие цифровые продукты, разработанные с нашим участием.
+                        </p>
+                    </div>
+
+                    <div class="space-y-16">
+                        
+                        <!-- PROJECT 1: 100WORDS -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            <div class="lg:col-span-7">
+                                <!-- Real Browser Window UI -->
+                                <div class="browser-mockup">
+                                    <div class="browser-bar">
+                                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                        <div class="ml-4 px-3 py-1 bg-white rounded-md text-[11px] font-mono text-aethel-gray border border-aethel-gray/20 flex-1 truncate">
+                                            https://simbaev-yerken.github.io/100WORDS/
+                                        </div>
+                                    </div>
+                                    <div class="p-8 sm:p-12 bg-gradient-to-br from-aethel-navy to-slate-900 text-white min-h-[260px] flex flex-col justify-between">
+                                        <div class="flex justify-between items-start">
+                                            <span class="px-3 py-1 bg-aethel-lime text-aethel-navy text-xs font-bold rounded-full">GLOBAL PLATFORM</span>
+                                            <span class="text-xs font-mono text-aethel-blue bg-white/10 px-3 py-1 rounded-md">15+ Countries</span>
+                                        </div>
+                                        <div class="mt-8">
+                                            <h4 class="text-4xl font-black mb-2">100WORDS</h4>
+                                            <p class="text-sm text-white/70 max-w-md">Интерактивный сервис изучения базового запаса слов с высоким международным охватом.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-5 flex flex-col justify-center space-y-4">
+                                <span class="text-xs font-bold text-aethel-blue uppercase tracking-widest">ПРОЕКТ 001 • EDUCATIONAL TECH</span>
+                                <h3 class="text-3xl font-black text-aethel-navy">100WORDS Platform</h3>
+                                <p class="text-aethel-gray text-base leading-relaxed">
+                                    Международный образовательный веб-сервис для запоминания ключевого словарного запаса. Проект получил охват пользователей более чем в <strong class="text-aethel-navy">15 странах мира</strong> благодаря высокой скорости работы и интуитивному интерфейсу.
+                                </p>
+                                <div class="pt-2">
+                                    <a href="https://simbaev-yerken.github.io/100WORDS/" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-aethel-navy hover:bg-aethel-blue text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+                                        <span>Перейти на сайт 100WORDS</span>
+                                        <i data-lucide="external-link" class="w-4 h-4 text-aethel-lime"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 2: SCHOOL PROJECT -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-aethel-gray/20">
+                            <div class="lg:col-span-5 flex flex-col justify-center space-y-4 order-2 lg:order-1">
+                                <span class="text-xs font-bold text-aethel-blue uppercase tracking-widest">ПРОЕКТ 002 • PRESENTATION SITE</span>
+                                <h3 class="text-3xl font-black text-aethel-navy">SCHOOL Presentation</h3>
+                                <p class="text-aethel-gray text-base leading-relaxed">
+                                    Наглядный и чистый веб-сайт для структурированной презентации проекта. Содержит удобную навигацию по разделам, визуальные карточки и современное оформление без лишней нагрузки.
+                                </p>
+                                <div class="pt-2">
+                                    <a href="https://simbaev-yerken.github.io/school/" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-aethel-navy hover:bg-aethel-blue text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+                                        <span>Перейти на сайт SCHOOL</span>
+                                        <i data-lucide="external-link" class="w-4 h-4 text-aethel-lime"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-7 order-1 lg:order-2">
+                                <!-- Real Browser Window UI -->
+                                <div class="browser-mockup">
+                                    <div class="browser-bar">
+                                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                        <div class="ml-4 px-3 py-1 bg-white rounded-md text-[11px] font-mono text-aethel-gray border border-aethel-gray/20 flex-1 truncate">
+                                            https://simbaev-yerken.github.io/school/
+                                        </div>
+                                    </div>
+                                    <div class="p-8 sm:p-12 bg-gradient-to-br from-slate-100 via-aethel-light to-white text-aethel-navy min-h-[260px] flex flex-col justify-between border-b border-aethel-gray/10">
+                                        <div class="flex justify-between items-start">
+                                            <span class="px-3 py-1 bg-aethel-blue text-white text-xs font-bold rounded-full">WEB PRESENTATION</span>
+                                            <span class="text-xs font-mono text-aethel-navy bg-aethel-navy/10 px-3 py-1 rounded-md">School Concept</span>
+                                        </div>
+                                        <div class="mt-8">
+                                            <h4 class="text-4xl font-black mb-2 text-aethel-navy">SCHOOL PROJECT</h4>
+                                            <p class="text-sm text-aethel-gray max-w-md">Презентационный веб-сайт с высокой скоростью отрисовки и понятным интерфейсом.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 3: KZ MONETORA -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-aethel-gray/20">
+                            <div class="lg:col-span-7">
+                                <!-- Real Browser Window UI -->
+                                <div class="browser-mockup">
+                                    <div class="browser-bar">
+                                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                        <div class="ml-4 px-3 py-1 bg-white rounded-md text-[11px] font-mono text-aethel-gray border border-aethel-gray/20 flex-1 truncate">
+                                            https://kz-monetora.netlify.app
+                                        </div>
+                                    </div>
+                                    <div class="p-8 sm:p-12 bg-gradient-to-br from-emerald-950 via-aethel-navy to-slate-900 text-white min-h-[260px] flex flex-col justify-between">
+                                        <div class="flex justify-between items-start">
+                                            <span class="px-3 py-1 bg-aethel-lime text-aethel-navy text-xs font-bold rounded-full">FREELANCE HUB</span>
+                                            <span class="text-xs font-mono text-white bg-white/10 px-3 py-1 rounded-md">Netlify App</span>
+                                        </div>
+                                        <div class="mt-8">
+                                            <h4 class="text-4xl font-black mb-2">KZ MONETORA</h4>
+                                            <p class="text-sm text-white/70 max-w-md">Платформа компании фриланса с регламентами и базой знаний.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-5 flex flex-col justify-center space-y-4">
+                                <span class="text-xs font-bold text-aethel-blue uppercase tracking-widest">ПРОЕКТ 003 • FREELANCE PLATFORM</span>
+                                <h3 class="text-3xl font-black text-aethel-navy">KZ MONETORA</h3>
+                                <p class="text-aethel-gray text-base leading-relaxed">
+                                    Веб-платформа фриланс-агентства KZ MONETORA. Сайт включает в себя структуру сервиса, подробные регламенты, инструкции для специалистов и презентацию услуг компании.
+                                </p>
+                                <div class="pt-2">
+                                    <a href="https://kz-monetora.netlify.app" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-aethel-navy hover:bg-aethel-blue text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+                                        <span>Перейти на KZ MONETORA</span>
+                                        <i data-lucide="external-link" class="w-4 h-4 text-aethel-lime"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- WORK PROCESS TIMELINE -->
+            <section class="py-24 px-6 lg:px-12 relative">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span class="text-aethel-blue font-bold text-xs tracking-widest uppercase mb-2 block">ПРОЗРАЧНЫЙ ПРОЦЕСС</span>
+                        <h2 class="text-4xl font-black text-aethel-navy">Как мы создаём ваш сайт</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                        <div class="premium-card p-6 rounded-2xl border-t-4 border-t-aethel-blue">
+                            <span class="font-mono text-3xl font-black text-aethel-blue block mb-3">01</span>
+                            <h3 class="text-base font-bold text-aethel-navy mb-2">Обсуждение</h3>
+                            <p class="text-aethel-gray text-xs leading-relaxed">Разбираем ваши задачи, целевую аудиторию и требования к сайту.</p>
+                        </div>
+
+                        <div class="premium-card p-6 rounded-2xl border-t-4 border-t-aethel-lime">
+                            <span class="font-mono text-3xl font-black text-aethel-navy block mb-3">02</span>
+                            <h3 class="text-base font-bold text-aethel-navy mb-2">Структура</h3>
+                            <p class="text-aethel-gray text-xs leading-relaxed">Составляем удобный прототип и распределяем информацию по блокам.</p>
+                        </div>
+
+                        <div class="premium-card p-6 rounded-2xl border-t-4 border-t-aethel-blue">
+                            <span class="font-mono text-3xl font-black text-aethel-blue block mb-3">03</span>
+                            <h3 class="text-base font-bold text-aethel-navy mb-2">Дизайн</h3>
+                            <p class="text-aethel-gray text-xs leading-relaxed">Создаем премиальный визуальный стиль с учётом вашего бренда.</p>
+                        </div>
+
+                        <div class="premium-card p-6 rounded-2xl border-t-4 border-t-aethel-lime">
+                            <span class="font-mono text-3xl font-black text-aethel-navy block mb-3">04</span>
+                            <h3 class="text-base font-bold text-aethel-navy mb-2">Верстка</h3>
+                            <p class="text-aethel-gray text-xs leading-relaxed">Программируем быстрый чистый код и адаптируем сайт под смартфоны.</p>
+                        </div>
+
+                        <div class="premium-card p-6 rounded-2xl border-t-4 border-t-aethel-navy">
+                            <span class="font-mono text-3xl font-black text-aethel-navy block mb-3">05</span>
+                            <h3 class="text-base font-bold text-aethel-navy mb-2">Запуск</h3>
+                            <p class="text-aethel-gray text-xs leading-relaxed">Публикуем сайт в сети, тестируем и передаём вам готовый продукт.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIRECT CONTACT CTA BANNER (NO FORM) -->
+            <section id="contacts-section" class="py-20 px-6 lg:px-12 relative">
+                <div class="max-w-7xl mx-auto rounded-3xl dark-card p-10 sm:p-16 relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-aethel-blue/20 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                        <div class="lg:col-span-7">
+                            <span class="text-aethel-lime font-bold text-xs tracking-widest uppercase mb-3 block">БЫСТРЫЙ СТАРТ</span>
+                            <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+                                Готовы вывести ваш бизнес на новый цифровой уровень?
+                            </h2>
+                            <p class="text-white/80 text-base sm:text-lg mb-8 leading-relaxed">
+                                Напишите нам прямо сейчас. Обсудим вашу задачу, предложим удобный формат сайта и рассчитаем точные сроки.
+                            </p>
+                            
+                            <div class="flex flex-wrap gap-4">
+                                <a href="https://t.me/qoqoqowi" target="_blank" class="px-8 py-4 bg-aethel-lime text-aethel-navy font-black rounded-xl hover:bg-white transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                    <span>Написать в Telegram @qoqoqowi</span>
+                                </a>
+                                <a href="mailto:simbaevyerken@gmail.com" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/20 flex items-center gap-3">
+                                    <i data-lucide="mail" class="w-5 h-5 text-aethel-lime"></i>
+                                    <span>Отправить E-mail</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Direct Contacts Card -->
+                        <div class="lg:col-span-5 bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/15 space-y-6">
+                            <h3 class="text-xl font-extrabold text-white mb-4">Прямые контакты студии:</h3>
+                            
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-aethel-blue/30 flex items-center justify-center text-aethel-lime">
+                                    <i data-lucide="send" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-white/60 font-mono uppercase">Telegram</div>
+                                    <a href="https://t.me/qoqoqowi" target="_blank" class="text-lg font-bold text-white hover:text-aethel-lime transition-colors">@qoqoqowi</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                                <div class="w-12 h-12 rounded-xl bg-aethel-lime/30 flex items-center justify-center text-aethel-lime">
+                                    <i data-lucide="mail" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-white/60 font-mono uppercase">E-mail</div>
+                                    <a href="mailto:simbaevyerken@gmail.com" class="text-sm sm:text-base font-bold text-white hover:text-aethel-lime transition-colors break-all">simbaevyerken@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-white/10 text-xs text-white/70 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-aethel-lime animate-pulse"></span>
+                                <span>Отвечаем в течение 15-30 минут</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- TAB: SERVICES PAGE -->
+        <div id="view-services" class="tab-view hidden px-6 lg:px-12 py-12 max-w-7xl mx-auto">
+            <div class="mb-12">
+                <span class="text-aethel-blue font-bold text-xs tracking-widest uppercase mb-2 block">ПОЛНЫЙ СПЕКТР УСЛУГ</span>
+                <h1 class="text-4xl sm:text-6xl font-black text-aethel-navy">Услуги & Экспертиза</h1>
+                <p class="text-aethel-gray text-lg mt-4 max-w-2xl">
+                    Полный цикл создания веб-сайтов — от аналитики до публикации готового продукта.
+                </p>
+            </div>
+<!-- ... existing code -->
